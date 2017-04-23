@@ -1,5 +1,8 @@
 package main;
 
+import geometry.SimpleQuadGeometry;
+import geometry.Geometry;
+import geometry.builder.GeometryBuilder;
 import java.io.IOException;
 
 /**
@@ -10,12 +13,18 @@ import java.io.IOException;
 public class StructuredMeshGenerator2D {
 
     public static void main(String[] args) throws IOException {
-        Geometry geom = new SimpleQuadGeometry(new Point(1, 0), new Point(5, 1),
-                new Point(4, 4), new Point(0.5, 0.5));
+//        Geometry geom = new SimpleQuadGeometry(new Point(1, 0), new Point(5, 1),
+//                new Point(4, 4), new Point(0.5, 0.5));
+        Geometry geom = GeometryBuilder
+                .begin(new Point(4, 4))
+                .curveToCorner2(new Point(5, 1))
+                .curveToCorner3(new Point(1, 0))
+                .curveToCorner4(new Point(0.5, 0.5))
+                .end();
 
         int numXiNodes = 20;
         int numEtaNodes = 40;
-        
+
         double dXi = 1.0 / (numXiNodes - 1);
         double dEta = 1.0 / (numEtaNodes - 1);
 

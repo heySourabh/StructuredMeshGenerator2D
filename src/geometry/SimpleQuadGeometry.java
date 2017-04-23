@@ -1,5 +1,7 @@
-package main;
+package geometry;
 
+import main.Parameter;
+import main.Point;
 import util.Range;
 
 /**
@@ -31,32 +33,32 @@ public class SimpleQuadGeometry implements Geometry {
     @Override
     public Point xi_0(Parameter eta) {
         return new Point(
-                Range.map(eta.parameter, parameterRange, new Range(p1.x, p4.x)),
-                Range.map(eta.parameter, parameterRange, new Range(p1.y, p4.y))
+                Range.map(eta.value, parameterRange, new Range(p1.x, p4.x)),
+                Range.map(eta.value, parameterRange, new Range(p1.y, p4.y))
         );
     }
 
     @Override
     public Point xi_1(Parameter eta) {
         return new Point(
-                Range.map(eta.parameter, parameterRange, new Range(p2.x, p3.x)),
-                Range.map(eta.parameter, parameterRange, new Range(p2.y, p3.y))
+                Range.map(eta.value, parameterRange, new Range(p2.x, p3.x)),
+                Range.map(eta.value, parameterRange, new Range(p2.y, p3.y))
         );
     }
 
     @Override
     public Point eta_0(Parameter xi) {
         return new Point(
-                Range.map(xi.parameter, parameterRange, new Range(p1.x, p2.x)),
-                Range.map(xi.parameter, parameterRange, new Range(p1.y, p2.y))
+                Range.map(xi.value, parameterRange, new Range(p1.x, p2.x)),
+                Range.map(xi.value, parameterRange, new Range(p1.y, p2.y))
         );
     }
 
     @Override
     public Point eta_1(Parameter xi) {
         return new Point(
-                Range.map(xi.parameter, parameterRange, new Range(p4.x, p3.x)),
-                Range.map(xi.parameter, parameterRange, new Range(p4.y, p3.y))
+                Range.map(xi.value, parameterRange, new Range(p4.x, p3.x)),
+                Range.map(xi.value, parameterRange, new Range(p4.y, p3.y))
         );
     }
 }

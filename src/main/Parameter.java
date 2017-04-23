@@ -6,12 +6,16 @@ package main;
  */
 public class Parameter {
 
-    public final double parameter;
+    public final double value;
 
-    public Parameter(double parameter) {
-        if (parameter < 0.0 || parameter > 1.0) {
+    /**
+     * A value between 0 and 1.
+     * @param value Saves a double restricted in closed range [0, 1].
+     */
+    public Parameter(double value) {
+        if (value < 0.0 || value > 1.0) {
             throw new IllegalArgumentException("The parameter must be within the range 0.0 and 1.0");
         }
-        this.parameter = parameter;
+        this.value = value;
     }
 }
