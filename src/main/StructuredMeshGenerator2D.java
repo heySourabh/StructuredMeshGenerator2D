@@ -15,6 +15,7 @@ public class StructuredMeshGenerator2D {
 
         int numXiNodes = 20;
         int numEtaNodes = 40;
+        
         double dXi = 1.0 / (numXiNodes - 1);
         double dEta = 1.0 / (numEtaNodes - 1);
 
