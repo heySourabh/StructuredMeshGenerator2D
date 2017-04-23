@@ -1,5 +1,6 @@
 package geometry.builder;
 
+import geometry.Angle;
 import java.util.List;
 import java.util.Optional;
 import main.Point;
@@ -23,9 +24,21 @@ public class Corner2 {
         return curveToCorner3(point3, Optional.empty(), Optional.empty());
     }
 
-    public Corner3 curveToCorner3(Point point3, Optional<Angle> angleStart, Optional<Angle> angleEnd) {
-        listCurves.add(new CubicCurve(point2, point3, angleStart, angleEnd));
-        
+    public Corner3 curveToCorner3(Angle startAngle, Point point3) {
+        return curveToCorner3(point3, Optional.of(startAngle), Optional.empty());
+    }
+
+    public Corner3 curveToCorner3(Point point3, Angle endAngle) {
+        return curveToCorner3(point3, Optional.empty(), Optional.of(endAngle));
+    }
+
+    public Corner3 curveToCorner3(Angle startAngle, Point point3, Angle endAngle) {
+        return curveToCorner3(point3, Optional.of(startAngle), Optional.of(endAngle));
+    }
+
+    private Corner3 curveToCorner3(Point point3, Optional<Angle> startAngle, Optional<Angle> endAngle) {
+        listCurves.add(new CubicCurve(point2, point3, startAngle, endAngle));
+
         return new Corner3(point3, listCurves);
     }
 }

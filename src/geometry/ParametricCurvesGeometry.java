@@ -1,10 +1,8 @@
-package geometry.builder;
+package geometry;
 
-import geometry.Geometry;
 import java.util.List;
 import main.Parameter;
 import main.Point;
-import geometry.ParametricCurve;
 
 /**
  *

@@ -1,4 +1,4 @@
-package geometry.builder;
+package geometry;
 
 /**
  *

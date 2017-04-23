@@ -11,7 +11,7 @@ public class GeometryBuilder {
     private GeometryBuilder() {
     }
 
-    public static Corner1 begin(Point point1) {
+    public static Corner1 beginFrom(Point point1) {
         Corner1 corner1 = new Corner1(point1);
         return corner1;
     }

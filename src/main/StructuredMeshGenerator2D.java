@@ -2,8 +2,10 @@ package main;
 
 import geometry.SimpleQuadGeometry;
 import geometry.Geometry;
+import geometry.Angle;
 import geometry.builder.GeometryBuilder;
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * Code for 2D structured mesh generation using Transfinite Interpolation
@@ -16,13 +18,13 @@ public class StructuredMeshGenerator2D {
 //        Geometry geom = new SimpleQuadGeometry(new Point(1, 0), new Point(5, 1),
 //                new Point(4, 4), new Point(0.5, 0.5));
         Geometry geom = GeometryBuilder
-                .begin(new Point(4, 4))
-                .curveToCorner2(new Point(5, 1))
-                .curveToCorner3(new Point(1, 0))
-                .curveToCorner4(new Point(0.5, 0.5))
-                .end();
+                .beginFrom(new Point(1, 1))
+                .curveToCorner2(Angle.inDegrees(60), new Point(5, 0))
+                .curveToCorner3(Angle.inDegrees(80), new Point(5, 4))
+                .curveToCorner4(new Point(1, 3), Angle.inDegrees(-60))
+                .close(Optional.of(Angle.inDegrees(260)), Optional.empty());
 
-        int numXiNodes = 20;
+        int numXiNodes = 100;
         int numEtaNodes = 40;
 
         double dXi = 1.0 / (numXiNodes - 1);

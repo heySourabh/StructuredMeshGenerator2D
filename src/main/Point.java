@@ -26,6 +26,13 @@ public class Point {
         return new Point(x - p.x, y - p.y);
     }
 
+    public double dist(Point other) {
+        double dx = other.x - x;
+        double dy = other.y - y;
+
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
     @Override
     public String toString() {
         return "(" + x + ", " + y + ")";

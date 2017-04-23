@@ -1,5 +1,7 @@
 package geometry.builder;
 
+import geometry.ParametricCurvesGeometry;
+import geometry.Angle;
 import geometry.Geometry;
 import java.util.List;
 import java.util.Optional;
@@ -21,14 +23,14 @@ public class Corner4 {
         this.listCurves = listCurves;
     }
 
-    public Geometry end() {
-        return end(Optional.empty(), Optional.empty());
+    public Geometry close() {
+        return close(Optional.empty(), Optional.empty());
     }
 
-    public Geometry end(Optional<Angle> angleStart, Optional<Angle> angleEnd) {
+    public Geometry close(Optional<Angle> startAngle, Optional<Angle> endAngle) {
         Point point1 = listCurves.get(0).getPoint(new Parameter(0));
 
-        listCurves.add(new CubicCurve(point4, point1, angleStart, angleEnd));
+        listCurves.add(new CubicCurve(point4, point1, startAngle, endAngle));
 
         return new ParametricCurvesGeometry(listCurves);
     }
