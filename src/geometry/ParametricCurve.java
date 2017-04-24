@@ -1,7 +1,6 @@
 package geometry;
 
 import main.Parameter;
-import main.Point;
 
 /**
  *

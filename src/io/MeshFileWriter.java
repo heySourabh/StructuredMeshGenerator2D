@@ -1,5 +1,6 @@
-package main;
+package io;
 
+import geometry.Point;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,17 +9,17 @@ import java.io.IOException;
  *
  * @author Sourabh Bhat <sourabh.bhat@iitb.ac.in>
  */
-class MeshFileWriter {
+public class MeshFileWriter {
 
     private final File meshFile;
     private final Point[][] nodes;
 
-    MeshFileWriter(Point[][] nodes, String fileName) {
+    public MeshFileWriter(Point[][] nodes, String fileName) {
         this.nodes = nodes;
         this.meshFile = new File(fileName);
     }
 
-    void write() throws IOException {
+    public void write() throws IOException {
         try (FileWriter fileWriter = new FileWriter(meshFile)) {
             int numXiNodes = nodes.length;
             int numEtaNodes = nodes[0].length;

@@ -1,12 +1,10 @@
 package util;
 
-import java.io.Serializable;
-
 /**
  *
  * @author Sourabh Bhat
  */
-public class Range implements Serializable {
+public class Range {
 
     private final double a, b;
     private final double width;

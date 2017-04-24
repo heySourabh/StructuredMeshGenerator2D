@@ -1,5 +1,7 @@
 package main;
 
+import io.MeshFileWriter;
+import geometry.Point;
 import geometry.SimpleQuadGeometry;
 import geometry.Geometry;
 import geometry.Angle;
@@ -18,11 +20,11 @@ public class StructuredMeshGenerator2D {
 //        Geometry geom = new SimpleQuadGeometry(new Point(1, 0), new Point(5, 1),
 //                new Point(4, 4), new Point(0.5, 0.5));
         Geometry geom = GeometryBuilder
-                .beginFrom(new Point(1, 1))
-                .curveToCorner2(Angle.inDegrees(60), new Point(5, 0))
-                .curveToCorner3(Angle.inDegrees(80), new Point(5, 4))
-                .curveToCorner4(new Point(1, 3), Angle.inDegrees(-60))
-                .close(Optional.of(Angle.inDegrees(260)), Optional.empty());
+                .beginFrom(new Point(1, 1.25))
+                .curveToCorner2(Angle.inDegrees(60), new Point(5, 0.25), Angle.inDegrees(180))
+                .curveToCorner3(new Point(5, 3.75))
+                .curveToCorner4(Angle.inDegrees(180), new Point(1, 2.75), Angle.inDegrees(-60))
+                .close(Optional.of(Angle.inDegrees(260)), Optional.of(Angle.inDegrees(100)));
 
         int numXiNodes = 100;
         int numEtaNodes = 40;
@@ -30,12 +32,12 @@ public class StructuredMeshGenerator2D {
         double dXi = 1.0 / (numXiNodes - 1);
         double dEta = 1.0 / (numEtaNodes - 1);
 
-        Point[][] point = new Point[numXiNodes][numEtaNodes];
+        Point[][] points = new Point[numXiNodes][numEtaNodes];
         for (int i = 0; i < numXiNodes; i++) {
             double xi = i * dXi;
             for (int j = 0; j < numEtaNodes; j++) {
                 double eta = j * dEta;
-                point[i][j] = geom.xi_0(new Parameter(eta)).mult((1 - xi))
+                points[i][j] = geom.xi_0(new Parameter(eta)).mult((1 - xi))
                         .add(geom.xi_1(new Parameter(eta)).mult(xi))
                         .add(geom.eta_0(new Parameter(xi)).mult(1 - eta))
                         .add(geom.eta_1(new Parameter(xi)).mult(eta))
@@ -46,7 +48,7 @@ public class StructuredMeshGenerator2D {
             }
         }
 
-        MeshFileWriter fileWriter = new MeshFileWriter(point, "mesh.dat");
+        MeshFileWriter fileWriter = new MeshFileWriter(points, "mesh.dat");
         fileWriter.write();
     }
 }

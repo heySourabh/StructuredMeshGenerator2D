@@ -4,7 +4,7 @@ import geometry.Angle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import main.Point;
+import geometry.Point;
 import geometry.ParametricCurve;
 
 /**

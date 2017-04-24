@@ -6,7 +6,7 @@ import geometry.Geometry;
 import java.util.List;
 import java.util.Optional;
 import main.Parameter;
-import main.Point;
+import geometry.Point;
 import geometry.ParametricCurve;
 
 /**

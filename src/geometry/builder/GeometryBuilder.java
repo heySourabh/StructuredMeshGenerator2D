@@ -1,6 +1,6 @@
 package geometry.builder;
 
-import main.Point;
+import geometry.Point;
 
 /**
  *

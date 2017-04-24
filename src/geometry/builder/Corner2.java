@@ -3,7 +3,7 @@ package geometry.builder;
 import geometry.Angle;
 import java.util.List;
 import java.util.Optional;
-import main.Point;
+import geometry.Point;
 import geometry.ParametricCurve;
 
 /**

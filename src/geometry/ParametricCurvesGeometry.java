@@ -2,7 +2,6 @@ package geometry;
 
 import java.util.List;
 import main.Parameter;
-import main.Point;
 
 /**
  *
