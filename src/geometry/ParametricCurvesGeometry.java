@@ -14,7 +14,7 @@ public class ParametricCurvesGeometry implements Geometry {
     /**
      * Geometry made up of a list of parametric curves.
      *
-     * @param listCurves The curves provided must be in clockwise /
+     * @param listCurves The curves provided must be in clockwise or
      * anti-clockwise direction
      */
     public ParametricCurvesGeometry(List<ParametricCurve> listCurves) {

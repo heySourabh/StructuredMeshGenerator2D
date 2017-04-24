@@ -3,6 +3,8 @@ package geometry.builder;
 import geometry.Point;
 
 /**
+ * Convenience class for building a list of <code>ParametricCurve</code>s for
+ * creating <code>Geometry</code> object.
  *
  * @author Sourabh Bhat <sourabh.bhat@iitb.ac.in>
  */

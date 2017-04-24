@@ -5,7 +5,9 @@ import geometry.Point;
 import geometry.SimpleQuadGeometry;
 import geometry.Geometry;
 import geometry.Angle;
+import geometry.GeometryFromFile;
 import geometry.builder.GeometryBuilder;
+import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -19,12 +21,15 @@ public class StructuredMeshGenerator2D {
     public static void main(String[] args) throws IOException {
 //        Geometry geom = new SimpleQuadGeometry(new Point(1, 0), new Point(5, 1),
 //                new Point(4, 4), new Point(0.5, 0.5));
-        Geometry geom = GeometryBuilder
-                .beginFrom(new Point(1, 1.25))
-                .curveToCorner2(Angle.inDegrees(60), new Point(5, 0.25), Angle.inDegrees(180))
-                .curveToCorner3(new Point(5, 3.75))
-                .curveToCorner4(Angle.inDegrees(180), new Point(1, 2.75), Angle.inDegrees(-60))
-                .close(Optional.of(Angle.inDegrees(260)), Optional.of(Angle.inDegrees(100)));
+//
+//        Geometry geom = GeometryBuilder
+//                .beginFrom(new Point(1, 1.25))
+//                .curveToCorner2(Angle.inDegrees(60), new Point(5, 0.25), Angle.inDegrees(180))
+//                .curveToCorner3(new Point(5, 3.75))
+//                .curveToCorner4(Angle.inDegrees(180), new Point(1, 2.75), Angle.inDegrees(-60))
+//                .close(Optional.of(Angle.inDegrees(260)), Optional.of(Angle.inDegrees(100)));
+
+        Geometry geom = new GeometryFromFile(new File("geometry.dat"));
 
         int numXiNodes = 100;
         int numEtaNodes = 40;

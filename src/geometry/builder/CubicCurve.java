@@ -97,7 +97,12 @@ public class CubicCurve implements ParametricCurve {
             // eqn dx/dt:         ax1     + ax2 * 2 * t + ax3 * 3 * t^2 = dx/dt = (-)cos(ang) * curve_length
             // eqn y    :   ay0 + ay1 * t + ay2 * t^2   + ay3 * t^3     = y
             // eqn dy/dt:         ay1     + ay2 * 2 * t + ay3 * 3 * t^2 = dy/dt = (-)sin(ang) * curve_length
-            // Solving the above equations results in:
+            // Solving the above equations with,
+            // @t=0, x=p1.x
+            // @t=0, ang=startAng
+            // @t=1, x=p2.x
+            // @t=1, ang=endAng & dx/dt has its sign reversed
+            // results in the following:
             // ax0 = p1.x
             // ax1 = cos(startAng) * l
             // ax2 = 3 * p2.x - 3 * ax0 - 2 * ax1 - cos(endAng) * l
