@@ -6,3 +6,8 @@ methods available within this project.
 
 ![Sample output](https://github.com/heySourabh/StructuredMeshGenerator2D/blob/master/sample_output.png)
 
+and here is the mesh generated using geometry read from a file.
+
+![Sample output](https://github.com/heySourabh/StructuredMeshGenerator2D/blob/master/sample_output_1.png)
+
+
