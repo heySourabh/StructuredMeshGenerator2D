@@ -39,17 +39,10 @@ public class StructuredMeshGenerator2D {
 
         Point[][] points = new Point[numXiNodes][numEtaNodes];
         for (int i = 0; i < numXiNodes; i++) {
-            double xi = i * dXi;
+            Parameter xi = new Parameter(i * dXi);
             for (int j = 0; j < numEtaNodes; j++) {
-                double eta = j * dEta;
-                points[i][j] = geom.xi_0(new Parameter(eta)).mult((1 - xi))
-                        .add(geom.xi_1(new Parameter(eta)).mult(xi))
-                        .add(geom.eta_0(new Parameter(xi)).mult(1 - eta))
-                        .add(geom.eta_1(new Parameter(xi)).mult(eta))
-                        .sub(geom.eta_0(new Parameter(0)).mult((1 - xi) * (1 - eta)))
-                        .sub(geom.eta_1(new Parameter(0)).mult(eta * (1 - xi)))
-                        .sub(geom.eta_0(new Parameter(1)).mult((1 - eta) * xi))
-                        .sub(geom.eta_1(new Parameter(1)).mult(xi * eta));
+                Parameter eta = new Parameter(j * dEta);
+                points[i][j] = TransfiniteInterpolator.interpolate(geom, xi, eta);
             }
         }
 

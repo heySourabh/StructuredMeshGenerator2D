@@ -19,7 +19,7 @@ public class ParametricCurvesGeometry implements Geometry {
      */
     public ParametricCurvesGeometry(List<ParametricCurve> listCurves) {
         if (listCurves.size() != 4) {
-            throw new IllegalArgumentException("4 cuves required to build the geometry.");
+            throw new IllegalArgumentException("Exactly 4 curves are required to build the geometry.");
         }
         this.listCurves = listCurves;
     }

@@ -30,7 +30,7 @@ public class GeometryFromFile implements Geometry {
 
         if (points_xi_0.length < 2 || points_xi_1.length < 2
                 || points_eta_0.length < 2 || points_eta_1.length < 2) {
-            throw new IllegalArgumentException("The number of points per segment must be at least 2.");
+            throw new IllegalArgumentException("The number of points per side must be at least 2.");
         }
 
         // Check continuity of geometry
@@ -38,7 +38,7 @@ public class GeometryFromFile implements Geometry {
                 || !overlapping(points_xi_0[points_xi_0.length - 1], points_eta_1[0])
                 || !overlapping(points_xi_1[0], points_eta_0[points_eta_0.length - 1])
                 || !overlapping(points_xi_1[points_xi_1.length - 1], points_eta_1[points_eta_1.length - 1])) {
-            throw new IllegalArgumentException("The geometry points supplied do not overlap property.");
+            throw new IllegalArgumentException("The geometry points supplied do not overlap properly.");
         }
 
         // create the mapping between points and parameters

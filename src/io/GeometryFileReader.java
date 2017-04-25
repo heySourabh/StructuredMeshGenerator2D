@@ -39,7 +39,7 @@ public class GeometryFileReader {
             points = new Point[numPoints];
             for (int i = 0; i < numPoints; i++) {
                 String nextLine = getNextValidLine(fileScanner);
-                String[] coordinates = nextLine.split("\\s");
+                String[] coordinates = nextLine.split("[\\s]+");
                 double x = Double.parseDouble(coordinates[0].trim());
                 double y = Double.parseDouble(coordinates[1].trim());
                 points[i] = new Point(x, y);
