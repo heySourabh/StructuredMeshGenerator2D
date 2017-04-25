@@ -1,10 +1,10 @@
 package geometry.builder;
 
+import com.sun.istack.internal.Nullable;
 import geometry.ParametricCurvesGeometry;
 import geometry.Angle;
 import geometry.Geometry;
 import java.util.List;
-import java.util.Optional;
 import main.Parameter;
 import geometry.Point;
 import geometry.ParametricCurve;
@@ -24,10 +24,10 @@ public class Corner4 {
     }
 
     public Geometry close() {
-        return close(Optional.empty(), Optional.empty());
+        return close(null, null);
     }
 
-    public Geometry close(Optional<Angle> startAngle, Optional<Angle> endAngle) {
+    public Geometry close(@Nullable Angle startAngle, @Nullable Angle endAngle) {
         Point point1 = listCurves.get(0).getPoint(new Parameter(0));
 
         listCurves.add(new CubicCurve(point4, point1, startAngle, endAngle));

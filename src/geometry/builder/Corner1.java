@@ -1,9 +1,9 @@
 package geometry.builder;
 
+import com.sun.istack.internal.Nullable;
 import geometry.Angle;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import geometry.Point;
 import geometry.ParametricCurve;
 
@@ -20,22 +20,22 @@ public class Corner1 {
     }
 
     public Corner2 curveToCorner2(Point point2) {
-        return curveToCorner2(point2, Optional.empty(), Optional.empty());
+        return curveToCorner2(point2, null, null);
     }
 
     public Corner2 curveToCorner2(Angle startAngle, Point point2) {
-        return curveToCorner2(point2, Optional.of(startAngle), Optional.empty());
+        return curveToCorner2(point2, startAngle, null);
     }
 
     public Corner2 curveToCorner2(Point point2, Angle endAngle) {
-        return curveToCorner2(point2, Optional.empty(), Optional.of(endAngle));
+        return curveToCorner2(point2, null, endAngle);
     }
 
     public Corner2 curveToCorner2(Angle startAngle, Point point2, Angle endAngle) {
-        return curveToCorner2(point2, Optional.of(startAngle), Optional.of(endAngle));
+        return curveToCorner2(point2, startAngle, endAngle);
     }
 
-    private Corner2 curveToCorner2(Point point2, Optional<Angle> startAngle, Optional<Angle> endAngle) {
+    private Corner2 curveToCorner2(Point point2, @Nullable Angle startAngle, @Nullable Angle endAngle) {
         List<ParametricCurve> listCurves = new ArrayList<>();
 
         listCurves.add(new CubicCurve(point1, point2, startAngle, endAngle));

@@ -1,7 +1,7 @@
 package geometry.builder;
 
+import com.sun.istack.internal.Nullable;
 import geometry.Angle;
-import java.util.Optional;
 import main.Parameter;
 import geometry.Point;
 import util.Range;
@@ -14,9 +14,10 @@ import geometry.ParametricCurve;
 public class CubicCurve implements ParametricCurve {
 
     private final Point p1, p2;
-    private final Optional<Angle> startAngle, endAngle;
+    private final Angle startAngle;
+    private final Angle endAngle;
 
-    public CubicCurve(Point p1, Point p2, Optional<Angle> startAngle, Optional<Angle> endAngle) {
+    public CubicCurve(Point p1, Point p2, @Nullable Angle startAngle, @Nullable Angle endAngle) {
         this.p1 = p1;
         this.p2 = p2;
         this.startAngle = startAngle;
@@ -26,12 +27,12 @@ public class CubicCurve implements ParametricCurve {
     @Override
     public Point getPoint(Parameter parameter) {
         // Both angles not defined so just a straight line
-        if (!startAngle.isPresent() && !endAngle.isPresent()) {
+        if (startAngle == null && endAngle == null) {
             return new Point(
                     Range.map(parameter.value, new Range(0, 1), new Range(p1.x, p2.x)),
                     Range.map(parameter.value, new Range(0, 1), new Range(p1.y, p2.y))
             );
-        } else if (startAngle.isPresent() && !endAngle.isPresent()) {
+        } else if (startAngle != null && endAngle == null) {
             // Quadratic curve using start angle
             // eqn x    :   ax0 + ax1 * t + ax2 * t^2   = x
             // eqn dx/dt:         ax1     + ax2 * 2 * t = dx/dt = cos(ang) * curve_length
@@ -47,11 +48,11 @@ public class CubicCurve implements ParametricCurve {
             double l = p1.dist(p2); // Approximate curve length
 
             double ax0 = p1.x;
-            double ax1 = Math.cos(startAngle.get().inRadians()) * l;
+            double ax1 = Math.cos(startAngle.inRadians()) * l;
             double ax2 = p2.x - (ax0 + ax1);
 
             double ay0 = p1.y;
-            double ay1 = Math.sin(startAngle.get().inRadians()) * l;
+            double ay1 = Math.sin(startAngle.inRadians()) * l;
             double ay2 = p2.y - (ay0 + ay1);
 
             double t = parameter.value;
@@ -60,7 +61,7 @@ public class CubicCurve implements ParametricCurve {
             double y = ay0 + ay1 * t + ay2 * t * t;
 
             return new Point(x, y);
-        } else if (!startAngle.isPresent() && endAngle.isPresent()) {
+        } else if (startAngle == null && endAngle != null) {
             // Quadratic curve using end angle
             // eqn x    :   ax0 + ax1 * t + ax2 * t^2   = x
             // eqn dx/dt:         ax1     + ax2 * 2 * t = dx/dt = -cos(ang) * curve_length
@@ -78,11 +79,11 @@ public class CubicCurve implements ParametricCurve {
             double l = p1.dist(p2); // Approximate curve length
 
             double ax0 = p1.x;
-            double ax1 = 2.0 * (p2.x - ax0 + Math.cos(endAngle.get().inRadians()) * l / 2.0);
+            double ax1 = 2.0 * (p2.x - ax0 + Math.cos(endAngle.inRadians()) * l / 2.0);
             double ax2 = p2.x - (ax0 + ax1);
 
             double ay0 = p1.y;
-            double ay1 = 2.0 * (p2.y - ay0 + Math.sin(endAngle.get().inRadians()) * l / 2.0);
+            double ay1 = 2.0 * (p2.y - ay0 + Math.sin(endAngle.inRadians()) * l / 2.0);
             double ay2 = p2.y - (ay0 + ay1);
 
             double t = parameter.value;
@@ -111,13 +112,13 @@ public class CubicCurve implements ParametricCurve {
             double l = p1.dist(p2); // Approximate curve length
 
             double ax0 = p1.x;
-            double ax1 = Math.cos(startAngle.get().inRadians()) * l;
-            double ax2 = 3.0 * p2.x - 3.0 * ax0 - 2.0 * ax1 + Math.cos(endAngle.get().inRadians()) * l;
+            double ax1 = Math.cos(startAngle.inRadians()) * l;
+            double ax2 = 3.0 * p2.x - 3.0 * ax0 - 2.0 * ax1 + Math.cos(endAngle.inRadians()) * l;
             double ax3 = p2.x - (ax0 + ax1 + ax2);
 
             double ay0 = p1.y;
-            double ay1 = Math.sin(startAngle.get().inRadians()) * l;
-            double ay2 = 3.0 * p2.y - 3.0 * ay0 - 2.0 * ay1 + Math.sin(endAngle.get().inRadians()) * l;
+            double ay1 = Math.sin(startAngle.inRadians()) * l;
+            double ay2 = 3.0 * p2.y - 3.0 * ay0 - 2.0 * ay1 + Math.sin(endAngle.inRadians()) * l;
             double ay3 = p2.y - (ay0 + ay1 + ay2);
 
             double t = parameter.value;

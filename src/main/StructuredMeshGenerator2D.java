@@ -9,7 +9,6 @@ import geometry.GeometryFromFile;
 import geometry.builder.GeometryBuilder;
 import java.io.File;
 import java.io.IOException;
-import java.util.Optional;
 
 /**
  * Code for 2D structured mesh generation using Transfinite Interpolation
@@ -27,7 +26,7 @@ public class StructuredMeshGenerator2D {
 //                .curveToCorner2(Angle.inDegrees(60), new Point(5, 0.25), Angle.inDegrees(180))
 //                .curveToCorner3(new Point(5, 3.75))
 //                .curveToCorner4(Angle.inDegrees(180), new Point(1, 2.75), Angle.inDegrees(-60))
-//                .close(Optional.of(Angle.inDegrees(260)), Optional.of(Angle.inDegrees(100)));
+//                .close(Angle.inDegrees(260), Angle.inDegrees(100));
 
         Geometry geom = new GeometryFromFile(new File("geometry.dat"));
 
