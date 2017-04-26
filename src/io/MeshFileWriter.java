@@ -24,6 +24,7 @@ public class MeshFileWriter {
             int numXiNodes = nodes.length;
             int numEtaNodes = nodes[0].length;
 
+            fileWriter.write(String.format("dimension=%d\n", 2));
             fileWriter.write(String.format("xi=%d\n", numXiNodes));
             fileWriter.write(String.format("eta=%d\n", numEtaNodes));
             fileWriter.write(String.format("%-20s %-20s\n", "x", "y"));
