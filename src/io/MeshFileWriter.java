@@ -1,9 +1,10 @@
 package io;
 
 import geometry.Point;
-import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 
 /**
  *
@@ -11,16 +12,13 @@ import java.io.IOException;
  */
 public class MeshFileWriter {
 
-    private final File meshFile;
-    private final Point[][] nodes;
-
-    public MeshFileWriter(Point[][] nodes, String fileName) {
-        this.nodes = nodes;
-        this.meshFile = new File(fileName);
+    private MeshFileWriter() {
     }
 
-    public void write() throws IOException {
-        try (FileWriter fileWriter = new FileWriter(meshFile)) {
+    public static void write(Point[][] nodes, String fileName) throws IOException {
+        try (OutputStreamWriter fileWriter
+                = new OutputStreamWriter(new FileOutputStream(fileName),
+                        StandardCharsets.UTF_8)) {
             int numXiNodes = nodes.length;
             int numEtaNodes = nodes[0].length;
 

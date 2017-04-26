@@ -3,6 +3,7 @@ package io;
 import geometry.Point;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -21,7 +22,7 @@ public class GeometryFileReader {
 
     public static Point[] readPoints(File file, SideLabel label) throws FileNotFoundException {
         Point[] points;
-        try (Scanner fileScanner = new Scanner(file)) {
+        try (Scanner fileScanner = new Scanner(file, "UTF-8")) {
             int numPoints = 0;
             String nextValidLine;
             while ((nextValidLine = getNextValidLine(fileScanner)) != null) {

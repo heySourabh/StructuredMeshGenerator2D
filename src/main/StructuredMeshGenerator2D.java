@@ -45,7 +45,6 @@ public class StructuredMeshGenerator2D {
             }
         }
 
-        MeshFileWriter fileWriter = new MeshFileWriter(points, "mesh.dat");
-        fileWriter.write();
+        MeshFileWriter.write(points, "mesh.dat");
     }
 }
