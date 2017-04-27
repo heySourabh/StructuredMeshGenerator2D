@@ -31,7 +31,7 @@ public class StructuredMeshGenerator2D {
         Geometry geom = new GeometryFromFile(new File("geometry.dat"));
 
         int numXiNodes = 100;
-        int numEtaNodes = 40;
+        int numEtaNodes = 100;
 
         double dXi = 1.0 / (numXiNodes - 1);
         double dEta = 1.0 / (numEtaNodes - 1);
