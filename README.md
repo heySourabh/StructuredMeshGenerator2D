@@ -14,6 +14,10 @@ Here is a mesh generated using geometry read from a file:
 
 ![Sample output](https://github.com/heySourabh/StructuredMeshGenerator2D/blob/master/demo/sample_output_1.png)
 
+and here is a CFD solution for flow over a cylinder using the above mesh:
+
+![Sample output](https://github.com/heySourabh/StructuredMeshGenerator2D/blob/master/demo/flow_over_cylinder.png)
+
 Here is another mesh generated using geometry from file:
 
 ![Sample output](https://github.com/heySourabh/StructuredMeshGenerator2D/blob/master/demo/sample_output_2.png)
