@@ -28,7 +28,7 @@ public class StructuredMeshGenerator2D {
 //                .curveToCorner4(Angle.inDegrees(180), new Point(1, 2.75), Angle.inDegrees(-60))
 //                .close(Angle.inDegrees(260), Angle.inDegrees(100));
 
-        Geometry geom = new GeometryFromFile(new File("geometry.dat"));
+        Geometry geom = new GeometryFromFile(new File("./support/geometry.dat"));
 
         int numXiNodes = 81;
         int numEtaNodes = 101;
