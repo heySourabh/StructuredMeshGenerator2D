@@ -1,12 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-meshFile = open("mesh.dat")
+fileName = "mesh.dat"
+meshFile = open(fileName)
 dims = int(meshFile.readline().split("=")[1])
 numXi = int(meshFile.readline().split("=")[1])
 numEta = int(meshFile.readline().split("=")[1])
 
-x, y = np.loadtxt("mesh.dat", skiprows=4, unpack=True)
+x, y = np.loadtxt(fileName, skiprows=4, unpack=True)
 x = np.reshape(x, (numXi, numEta))
 y = np.reshape(y, (numXi, numEta))
 

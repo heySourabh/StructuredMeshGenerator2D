@@ -45,6 +45,6 @@ public class StructuredMeshGenerator2D {
             }
         }
 
-        MeshFileWriter.write(points, "mesh.dat");
+        MeshFileWriter.writeVtkFormat(points, "mesh");
     }
 }
