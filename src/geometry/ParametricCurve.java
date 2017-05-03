@@ -1,6 +1,6 @@
 package geometry;
 
-import main.Parameter;
+import mesh.Parameter;
 
 /**
  *

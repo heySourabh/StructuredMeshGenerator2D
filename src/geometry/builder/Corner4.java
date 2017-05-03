@@ -5,7 +5,7 @@ import geometry.ParametricCurvesGeometry;
 import geometry.Angle;
 import geometry.Geometry;
 import java.util.List;
-import main.Parameter;
+import mesh.Parameter;
 import geometry.Point;
 import geometry.ParametricCurve;
 

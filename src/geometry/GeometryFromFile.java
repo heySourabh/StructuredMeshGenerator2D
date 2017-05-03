@@ -4,7 +4,7 @@ import io.GeometryFileReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.stream.IntStream;
-import main.Parameter;
+import mesh.Parameter;
 import util.Range;
 
 /**
@@ -67,7 +67,12 @@ public class GeometryFromFile implements Geometry {
     }
 
     private boolean overlapping(Point p1, Point p2) {
-        return p1.dist(p2) < TOLERANCE;
+        if (p1.dist(p2) < TOLERANCE) {
+            return true;
+        } else {
+            System.out.println(p1 + " does not overlap " + p2);
+            return false;
+        }
     }
 
     private Point getPoint(Parameter parameter, double[] paramter_map, Point[] points) {

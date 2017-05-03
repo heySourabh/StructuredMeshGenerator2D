@@ -2,7 +2,7 @@ package geometry.builder;
 
 import com.sun.istack.internal.Nullable;
 import geometry.Angle;
-import main.Parameter;
+import mesh.Parameter;
 import geometry.Point;
 import util.Range;
 import geometry.ParametricCurve;

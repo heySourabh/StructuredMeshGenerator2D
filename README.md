@@ -1,7 +1,10 @@
 # StructuredMeshGenerator2D
 A structured mesh generator for creating 2D mesh using Transfinite Interpolation (TFI) method.
 
-Here is a sample mesh generated, where the geometry is created using some helper 
+Below is an example of multi-block mesh generated using multiple geometry defining files:
+![Sample output](https://github.com/heySourabh/StructuredMeshGenerator2D/blob/master/demo/multi_block_mesh_example.png)
+
+Below is a sample mesh generated, where the geometry is created using some helper 
 methods available within this project.
 
 ![Sample output](https://github.com/heySourabh/StructuredMeshGenerator2D/blob/master/demo/sample_output.png)
