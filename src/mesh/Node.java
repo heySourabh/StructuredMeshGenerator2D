@@ -1,8 +1,8 @@
 package mesh;
 
-import geometry.Point;
 import java.util.ArrayList;
 import java.util.List;
+import geometry.Point;
 import java.util.Objects;
 
 /**
@@ -22,6 +22,10 @@ public class Node {
         this.belongsTo = new ArrayList<>(4);
     }
 
+    public boolean isOnBoundary() {
+        return belongsTo.size() != 4;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -32,6 +36,13 @@ public class Node {
             Node other = (Node) obj;
             return overlapping(this.point, other.point);
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.point);
+        return hash;
     }
 
     private boolean overlapping(Point p1, Point p2) {

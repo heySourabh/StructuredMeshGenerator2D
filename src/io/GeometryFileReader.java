@@ -3,8 +3,6 @@ package io;
 import geometry.Point;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**

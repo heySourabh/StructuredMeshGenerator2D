@@ -1,12 +1,14 @@
 package mesh;
 
-import geometry.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  *
@@ -16,19 +18,19 @@ public class UnstructuredMesh {
 
     public final List<Element> elemList;
     public final List<Node> nodeList;
+    public final Map<String, List<Face>> boundaries;
 
-    public UnstructuredMesh(Point[][] structuredPoints) {
-        final int NUM_XI_NODES = structuredPoints.length;
-        final int NUM_ETA_NODES = structuredPoints[0].length;
+    public UnstructuredMesh(StructuredMesh structuredMesh) {
+        final int NUM_XI_NODES = structuredMesh.nodes.length;
+        final int NUM_ETA_NODES = structuredMesh.nodes[0].length;
 
         Node[][] nodes = new Node[NUM_XI_NODES][NUM_ETA_NODES];
         nodeList = new ArrayList<>(NUM_XI_NODES * NUM_ETA_NODES);
 
         for (int i = 0; i < NUM_XI_NODES; i++) {
             for (int j = 0; j < NUM_ETA_NODES; j++) {
-                Node newNode = new Node(structuredPoints[i][j]);
-                nodes[i][j] = newNode;
-                nodeList.add(newNode);
+                nodes[i][j] = structuredMesh.nodes[i][j];
+                nodeList.add(nodes[i][j]);
             }
         }
 
@@ -54,6 +56,8 @@ public class UnstructuredMesh {
             }
         }
 
+        // Set up the boundary markers
+        boundaries = structuredMesh.boundaries;
     }
 
     public UnstructuredMesh stitch(UnstructuredMesh other) {
@@ -62,37 +66,33 @@ public class UnstructuredMesh {
         }
 
         // Check if any node in other mesh is at same position as a node in this mesh.
-        // if yes then replaceEquivalentNodeBy the node from this mesh by other mesh node.
-        // Find boundary elements of this cell
-        Set<Element> bndryElems = new HashSet<>();
+        // if yes then replaceNode the node from this mesh by other mesh node.
+        Set<Node> bndryNodes = new HashSet<>();
         for (Node node : this.nodeList) {
-            if (node.belongsTo.size() < 4) {
-                bndryElems.addAll(node.belongsTo);
+            if (node.isOnBoundary()) {
+                bndryNodes.add(node);
             }
         }
         Set<Node> otherBndryNodes = new HashSet<>();
         for (Node node : other.nodeList) {
-            if (node.belongsTo.size() < 4) {
+            if (node.isOnBoundary()) {
                 otherBndryNodes.add(node);
             }
         }
 
-        for (Node node : otherBndryNodes) {
-            for (Element elem : bndryElems) {
-                elem.replaceEquivalentNodeBy(node);
+        for (Node nodeOther : otherBndryNodes) {
+            for (Node node : bndryNodes) {
+                if (node.equals(nodeOther)) {
+                    for (Element elem : node.belongsTo) {
+                        elem.replaceNode(node, nodeOther);
+                    }
+                }
             }
         }
 
-        for (Element ele : bndryElems) {
-            for (Node node : ele.nodes) {
-                List<Element> belongsTo = node.belongsTo.stream()
-                        .distinct().collect(Collectors.toList());
-                node.belongsTo.clear();
-                node.belongsTo.addAll(belongsTo);
-            }
-        }
+        elemList.addAll(other.elemList); // Adding the two mesh cells together
 
-        elemList.addAll(other.elemList);
+        // Clear the old nodelist so that the combined list can be populated
         nodeList.clear();
         Set<Node> nodeSet = new HashSet<>();
         for (Element ele : elemList) {
@@ -100,6 +100,73 @@ public class UnstructuredMesh {
         }
         nodeList.addAll(nodeSet);
 
+        // Clear the belongsTo and new belongsTo cells are populated
+        for (Node node : nodeList) {
+            node.belongsTo.clear();
+        }
+        for (Element elem : elemList) {
+            for (Node node : elem.nodes) {
+                node.belongsTo.add(elem);
+            }
+        }
+
+        // remove internal boundary faces
+        List<List<Face>> bndryMarkerFaces = boundaries.keySet().stream()
+                .map(key -> boundaries.get(key))
+                .collect(Collectors.toList());
+
+        List<Node> otherBndryMarkerFaces = other.boundaries.keySet().stream()
+                .flatMap(key -> other.boundaries.get(key).stream())
+                .flatMap(face -> Stream.of(face.node1, face.node2))
+                .collect(Collectors.toList());
+
+        for (Node node : otherBndryMarkerFaces) {
+            for (List<Face> bndryFaceList : bndryMarkerFaces) {
+                for (Face face : bndryFaceList) {
+                    if (face.node1.equals(node)) {
+                        face.node1 = node;
+                    }
+                    if (face.node2.equals(node)) {
+                        face.node2 = node;
+                    }
+                }
+            }
+        }
+
+        Map<String, List<Face>> allBoundaries = combine(boundaries, other.boundaries);
+        allBoundaries.keySet().stream()
+                .forEach(marker -> {
+                    allBoundaries.get(marker)
+                            .removeIf(face -> !face.isOnBoundary());
+                });
+        List<String> emptyMarkers = allBoundaries.keySet().stream()
+                .filter(key -> allBoundaries.get(key).isEmpty())
+                .collect(Collectors.toList());
+
+        emptyMarkers.stream()
+                .forEach(emptyMarker -> allBoundaries.remove(emptyMarker));
+
+        boundaries.clear();
+
+        boundaries.putAll(allBoundaries);
+
         return this;
+    }
+
+    private Map<String, List<Face>> combine(Map<String, List<Face>> boundaries1, Map<String, List<Face>> boundaries2) {
+        Map<String, List<Face>> newMap = new HashMap<>();
+        for (String key : boundaries1.keySet()) {
+            newMap.put(key, boundaries1.get(key));
+        }
+
+        for (String key : boundaries2.keySet()) {
+            if (newMap.containsKey(key)) {
+                newMap.get(key).addAll(boundaries2.get(key));
+            } else {
+                newMap.put(key, boundaries2.get(key));
+            }
+        }
+
+        return newMap;
     }
 }

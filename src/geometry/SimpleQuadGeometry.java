@@ -15,10 +15,10 @@ public class SimpleQuadGeometry implements Geometry {
     /**
      * Points p1, p2, p3 and p4 must be in a clockwise or anti-clockwise order.
      *
-     * @param p1 Corner
-     * @param p2 Corner
-     * @param p3 Corner
-     * @param p4 Corner
+     * @param p1 Corner xi_0, eta_0
+     * @param p2 Corner xi_1, eta_0
+     * @param p3 Corner xi_1, eta_1
+     * @param p4 Corner xi_0, eta_1
      */
     public SimpleQuadGeometry(Point p1, Point p2, Point p3, Point p4) {
         this.p1 = p1;

@@ -12,14 +12,13 @@ public class Element {
         this.nodes = nodes;
     }
 
-    public void replaceEquivalentNodeBy(Node newNode) {
-        if (newNode == null) {
-            throw new IllegalArgumentException("The newNode provided must not be mull.");
+    public void replaceNode(Node oldNode, Node newNode) {
+        if (newNode == null || oldNode == null) {
+            throw new IllegalArgumentException("The newNode/oldNode provided must not be null.");
         }
 
         for (int i = 0; i < nodes.length; i++) {
-            if (nodes[i] != null && nodes[i].equals(newNode)) {
-                newNode.belongsTo.addAll(nodes[i].belongsTo);
+            if (nodes[i] == oldNode) {
                 nodes[i] = newNode;
             }
         }
