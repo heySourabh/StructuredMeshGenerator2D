@@ -33,6 +33,9 @@ public class MeshDefinition {
     }
 
     private static String markerName(String name) {
-        return (name == null || name.isEmpty()) ? DEFAULT_MARKER : name;
+        String modifiedName = (name == null || name.isEmpty()) ? DEFAULT_MARKER : name;
+        modifiedName = modifiedName.replaceAll(" ", "");
+
+        return modifiedName;
     }
 }

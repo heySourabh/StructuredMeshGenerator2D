@@ -115,12 +115,12 @@ public class UnstructuredMesh {
                 .map(key -> boundaries.get(key))
                 .collect(Collectors.toList());
 
-        List<Node> otherBndryMarkerFaces = other.boundaries.keySet().stream()
+        List<Node> otherBndryMarkerNodes = other.boundaries.keySet().stream()
                 .flatMap(key -> other.boundaries.get(key).stream())
                 .flatMap(face -> Stream.of(face.node1, face.node2))
                 .collect(Collectors.toList());
 
-        for (Node node : otherBndryMarkerFaces) {
+        for (Node node : otherBndryMarkerNodes) { // Replace overlapping nodes from this boundary faces with other boundary nodes
             for (List<Face> bndryFaceList : bndryMarkerFaces) {
                 for (Face face : bndryFaceList) {
                     if (face.node1.equals(node)) {
@@ -155,17 +155,21 @@ public class UnstructuredMesh {
 
     private Map<String, List<Face>> combine(Map<String, List<Face>> boundaries1, Map<String, List<Face>> boundaries2) {
         Map<String, List<Face>> newMap = new HashMap<>();
-        for (String key : boundaries1.keySet()) {
-            newMap.put(key, boundaries1.get(key));
-        }
+        boundaries1.keySet().stream().forEach((marker) -> {
+            // Add all the lists from boundaries1
+            newMap.put(marker, boundaries1.get(marker));
+        });
 
-        for (String key : boundaries2.keySet()) {
-            if (newMap.containsKey(key)) {
-                newMap.get(key).addAll(boundaries2.get(key));
+        // While adding boundaries2, check if the marker exists,
+        // if it does then append to the existing list, 
+        // else add the new list to map
+        boundaries2.keySet().stream().forEach((marker) -> {
+            if (newMap.containsKey(marker)) {
+                newMap.get(marker).addAll(boundaries2.get(marker));
             } else {
-                newMap.put(key, boundaries2.get(key));
+                newMap.put(marker, boundaries2.get(marker));
             }
-        }
+        });
 
         return newMap;
     }
