@@ -28,7 +28,7 @@ public class Su2MeshWriter {
         final int NUM_BNDRS = mesh.boundaries.size();
         final int VTK_QUAD = 9;
 
-        System.out.print("Writing unstructured mesh file in vtk format: " + fileNamePrefix + ".su2" + " ... ");
+        System.out.print("Writing unstructured mesh file in su2 format: " + fileNamePrefix + ".su2" + " ... ");
         try (OutputStreamWriter fileWriter = new OutputStreamWriter(new FileOutputStream(fileNamePrefix + ".su2"),
                 StandardCharsets.UTF_8)) {
             writeln(fileWriter, "NDIME= 2");
@@ -69,7 +69,7 @@ public class Su2MeshWriter {
             }
         }
 
-        System.out.println("Done.");
+        System.out.println(" Done.");
     }
 
     private static void writeln(OutputStreamWriter fileWriter, String str) throws IOException {

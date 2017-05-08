@@ -32,7 +32,7 @@ public class TransfiniteInterpolator {
             Parameter xi = new Parameter(i * dXi);
             for (int j = 0; j < numEtaNodes; j++) {
                 Parameter eta = new Parameter(j * dEta);
-                Point point = TransfiniteInterpolator.interpolate(geom, xi, eta);
+                Point point = interpolate(geom, xi, eta);
                 nodes[i][j] = new Node(point);
             }
         }
